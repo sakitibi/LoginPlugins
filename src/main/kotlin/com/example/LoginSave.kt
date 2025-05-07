@@ -16,6 +16,11 @@ class LoginState : PersistentState() {
         return nbt
     }
 
+    /** ✅ 誰か一人でもログインしていれば true を返す関数 */
+    fun hasAnyoneLoggedIn(): Boolean {
+        return logins.values.any { it }
+    }
+
     companion object {
         fun createFromNbt(nbt: NbtCompound): LoginState {
             val state = LoginState()
