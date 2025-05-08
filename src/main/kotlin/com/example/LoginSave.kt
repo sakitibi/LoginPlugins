@@ -1,10 +1,13 @@
 package com.example
 
 import net.minecraft.nbt.NbtCompound
+import net.minecraft.server.MinecraftServer
+import net.minecraft.scoreboard.Scoreboard
+import net.minecraft.scoreboard.ScoreboardCriterion
+import net.minecraft.scoreboard.ScoreboardObjective
+import net.minecraft.text.Text
 import net.minecraft.world.PersistentState
 import net.minecraft.world.PersistentStateManager
-import net.minecraft.server.MinecraftServer
-import net.minecraft.util.Identifier
 
 class LoginState : PersistentState() {
     val logins = mutableMapOf<String, Boolean>()
@@ -20,6 +23,26 @@ class LoginState : PersistentState() {
 
     fun hasAnyoneLoggedIn(): Boolean {
         return logins.values.any { it }
+    }
+
+    fun updateGlobalLoginScore(server: MinecraftServer) {
+        val scoreboard: Scoreboard = server.scoreboard
+        var objective: ScoreboardObjective? = scoreboard.getObjective("any_logged_in")
+
+        // Objectiveが存在しない場合、新たに作成
+        if (objective == null) {
+            objective = scoreboard.addObjective(
+                "any_logged_in",
+                ScoreboardCriterion.DUMMY,
+                Text.literal("Any Login"),
+                ScoreboardCriterion.RenderType.INTEGER
+            )
+            scoreboard.setObjectiveSlot(0, objective)
+        }
+
+        // プレイヤーのスコアを取得または作成
+        val score = scoreboard.getPlayerScore("global", objective)
+        score.score = if (hasAnyoneLoggedIn()) 1 else 0
     }
 
     companion object {
