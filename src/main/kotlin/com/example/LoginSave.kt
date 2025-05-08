@@ -1,3 +1,5 @@
+package com.example
+
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.world.PersistentState
 import net.minecraft.world.PersistentStateManager
@@ -16,7 +18,6 @@ class LoginState : PersistentState() {
         return nbt
     }
 
-    /** ✅ 誰か一人でもログインしていれば true を返す関数 */
     fun hasAnyoneLoggedIn(): Boolean {
         return logins.values.any { it }
     }
