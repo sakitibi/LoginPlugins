@@ -1,0 +1,6 @@
+{
+  "mixins": [
+    "ChatMessageMixin"
+  ],
+  "package": "com.example.mixin"
+}
