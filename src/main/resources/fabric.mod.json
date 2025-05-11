@@ -13,6 +13,9 @@
             "com.example.Login.Plugins"
         ]
     },
+    "mixins": [
+        "com.example.mixin.ChatMessageMixin"
+    ],
     "depends": {
         "fabricloader": ">=0.14.21",
         "fabric": "*",
