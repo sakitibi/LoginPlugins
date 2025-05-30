@@ -1,4 +1,3 @@
-// Copyright 2025 SKNewRoles
 package com.example
 
 import java.util.UUID
