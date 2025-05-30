@@ -1,10 +1,11 @@
 plugins {
     kotlin("jvm") version "1.8.22"
     id("fabric-loom") version "1.2.8"
+    application
 }
 
 group = "login.plugins"
-version = "2.6.0.0"
+version = "2.9.9.9"
 
 repositories {
     maven { url = uri("https://maven.fabricmc.net/") }
@@ -17,8 +18,22 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.14.21")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.76.0+1.19.4") // 最新のAPIにしてください
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.json:json:20240303")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 kotlin {
     jvmToolchain(17)
+}
+
+application {
+    mainClass.set("com.example.paymentrelay.MainKt")
+}
+
+loom {
+    mixin {
+        defaultRefmapName.set("loginplugin.refmap.json")
+    }
 }
