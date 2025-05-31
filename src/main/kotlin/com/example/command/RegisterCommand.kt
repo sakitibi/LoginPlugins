@@ -20,7 +20,9 @@ object RegisterCommand {
 
     private val questions = listOf(
         "利用規約に同意しますか？ (y/n)",
+        "ウォーターチャレンジを批判しますか？ (y/n)",
         "名前は長い方が有利を批判しますか？ (y/n)",
+        "マイ鉄ネットを批判しますか？ (y/n)",
         "README.htmlを読みましたか？ (y/n)"
     )
 
@@ -110,9 +112,9 @@ object RegisterCommand {
                             val loginState = LoginState.get(server)
                             loginState.logins[uuid.toString()] = true
                             loginState.updateGlobalLoginScore(server)
-                            player.sendMessage(Text.literal("✅ ログインが完了しました（支払い確認済）！"), false)
+                            player.sendMessage(Text.literal("✅ ログインが完了しました！"), false)
                         } else {
-                            player.sendMessage(Text.literal("❌ 支払い確認ができません。ログイン失敗。"), false)
+                            player.sendMessage(Text.literal("❌ ログイン失敗。"), false)
                         }
                     }
                 }
