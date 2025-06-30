@@ -12,7 +12,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.security.MessageDigest
 import java.util.*
-import com.example.Server
 import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 
@@ -23,6 +22,7 @@ object RegisterCommand {
         "ウォーターチャレンジを批判しますか？ (y/n)",
         "名前は長い方が有利を批判しますか？ (y/n)",
         "マイ鉄ネットを批判しますか？ (y/n)",
+        "餅尾戦争を支持しますか？ (y/n)",
         "README.htmlを読みましたか？ (y/n)"
     )
 
