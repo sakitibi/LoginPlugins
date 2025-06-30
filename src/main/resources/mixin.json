@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ChatMessageMixin"
+  ],
+  "package": "com.example.mixin",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

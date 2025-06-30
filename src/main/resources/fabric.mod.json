@@ -1,0 +1,48 @@
+{
+    "schemaVersion": 1,
+    "id": "LoginPlugins",
+    "version": "2.6.0.0",
+    "name": "Login Mod",
+    "description": "Copyright SKNewRoles",
+    "authors": ["Sakitibi"],
+    "contact": {},
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.example.Login.Plugins"
+        ]
+    },
+    "mixins": [
+        "com.example.mixin.ChatMessageMixin"
+    ],
+    "depends": {
+        "fabricloader": ">=0.14.21",
+        "fabric": "*",{
+    "schemaVersion": 1,
+    "id": "LoginPlugins",
+    "version": "3.0.0.0",
+    "name": "Login Mod",
+    "description": "Copyright SKNewRoles",
+    "authors": ["Sakitibi"],
+    "contact": {},
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.example.Login.Plugins"
+        ]
+    },
+    "mixins": [
+        "com.example.mixin.ChatMessageMixin",
+        "com.example.mixin.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.14.21",
+        "fabric": "*",
+        "minecraft": "1.19.4"
+    }
+}
+        "minecraft": "1.19.4"
+    }
+}
