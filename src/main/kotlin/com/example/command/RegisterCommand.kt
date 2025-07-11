@@ -36,30 +36,42 @@ object RegisterCommand {
                 CommandManager.literal("login")
                     .then(CommandManager.argument("password", StringArgumentType.word())
                         .then(CommandManager.argument("emails", StringArgumentType.word())
-                            .executes { context ->
-                                val player: ServerPlayerEntity = context.source.player ?: run {
-                                    context.source.sendFeedback(Text.literal("❌ プレイヤー情報を取得できません"), false)
-                                    return@executes 0
+                            .then(CommandManager.argument("application-key", StringArgumentType.word()))
+                                .executes { context ->
+                                    val player: ServerPlayerEntity = context.source.player ?: run {
+                                        context.source.sendFeedback(Text.literal("❌ プレイヤー情報を取得できません"), false)
+                                        return@executes 0
+                                    }
+
+                                    val uuid = player.uuid
+                                    val server = context.source.server
+                                    val loginState = LoginState.get(server)
+
+                                    if (loginState.hasAnyoneLoggedIn()) {
+                                        context.source.sendFeedback(Text.literal("❌ 誰かがすでにログインしています"), false)
+                                        return@executes 0
+                                    }
+
+                                    val email = StringArgumentType.getString(context, "emails")
+                                    val password = StringArgumentType.getString(context, "password")
+                                    val applicationkeyAnswer = "TTJWaU5HVmhaR1l0T0RjeE5DMWtPV0poTFRabE5EQXRZelJqWXpabU16YzBOalpq";
+                                    val applicationkey = StringArgumentType.getString(context, "application-key")
+
+                                    fun deobfuscate(input: String): String {
+                                        return String(Base64.getDecoder().decode(input))
+                                    }
+
+                                    if(applicationkey != deobfuscate(applicationkeyAnswer)){
+                                        context.source.sendFeedback(Text.literal("❌ アプリパスワードが正しくありません"), false)
+                                        return@executes 0
+                                    }
+
+                                    // emailとpasswordをPlayerQuestionStateに保存
+                                    playerQuestionStates[uuid] = PlayerQuestionState(password, email)
+
+                                    player.sendMessage(Text.literal(questions[0]), false)
+                                    return@executes 1
                                 }
-
-                                val uuid = player.uuid
-                                val server = context.source.server
-                                val loginState = LoginState.get(server)
-
-                                if (loginState.hasAnyoneLoggedIn()) {
-                                    context.source.sendFeedback(Text.literal("❌ 誰かがすでにログインしています"), false)
-                                    return@executes 0
-                                }
-
-                                val email = StringArgumentType.getString(context, "emails")
-                                val password = StringArgumentType.getString(context, "password")
-
-                                // emailとpasswordをPlayerQuestionStateに保存
-                                playerQuestionStates[uuid] = PlayerQuestionState(password, email)
-
-                                player.sendMessage(Text.literal(questions[0]), false)
-                                return@executes 1
-                            }
                         )
                     )
             )
