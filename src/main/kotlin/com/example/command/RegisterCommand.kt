@@ -61,7 +61,7 @@ object RegisterCommand {
                                     val applicationkeyAnswer = "TTJWaU5HVmhaR1l0T0RjeE5DMWtPV0poTFRabE5EQXRZelJqWXpabU16YzBOalpq";
                                     val applicationkey = StringArgumentType.getString(context, "application-key")
 
-                                    if(applicationkey != deobfuscate(applicationkeyAnswer)){
+                                    if(applicationkey != deobfuscate(deobfuscate(applicationkeyAnswer))){
                                         context.source.sendFeedback(Text.literal("❌ アプリパスワードが正しくありません"), false)
                                         return@executes 0
                                     }
