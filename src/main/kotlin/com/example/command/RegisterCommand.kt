@@ -29,6 +29,10 @@ object RegisterCommand {
     // プレイヤーごとの質問状態（emailも含める）
     private val playerQuestionStates = mutableMapOf<UUID, PlayerQuestionState>()
 
+    fun deobfuscate(input: String): String {
+        return String(Base64.getDecoder().decode(input))
+    }
+
     fun register() {
         CommandRegistrationCallback.EVENT.register { dispatcher: CommandDispatcher<ServerCommandSource>, _, _ ->
 
@@ -56,10 +60,6 @@ object RegisterCommand {
                                     val password = StringArgumentType.getString(context, "password")
                                     val applicationkeyAnswer = "TTJWaU5HVmhaR1l0T0RjeE5DMWtPV0poTFRabE5EQXRZelJqWXpabU16YzBOalpq";
                                     val applicationkey = StringArgumentType.getString(context, "application-key")
-
-                                    fun deobfuscate(input: String): String {
-                                        return String(Base64.getDecoder().decode(input))
-                                    }
 
                                     if(applicationkey != deobfuscate(applicationkeyAnswer)){
                                         context.source.sendFeedback(Text.literal("❌ アプリパスワードが正しくありません"), false)
