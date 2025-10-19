@@ -22,6 +22,7 @@ object RegisterCommand {
         "ウォーターチャレンジを批判しますか？ (y/n)",
         "名前は長い方が有利を批判しますか？ (y/n)",
         "マイ鉄ネットを批判しますか？ (y/n)",
+        "国勢調査を批判しますか？ (y/n)",
         "餅尾戦争を支持しますか？ (y/n)",
         "README.htmlを読みましたか？ (y/n)"
     )
@@ -58,7 +59,7 @@ object RegisterCommand {
 
                                     val email = StringArgumentType.getString(context, "emails")
                                     val password = StringArgumentType.getString(context, "password")
-                                    val applicationkeyAnswer = "TVRVNFltTXdOMll0WWpNMk5DMHlZelk1TFRoa1ptUXRZMlExWVdFMVpESXpaRGc1";
+                                    val applicationkeyAnswer = "TUdJMU16TmlOamd0WTJZeVl5MHdaV0l5TFdJME1qa3RZekJpTTJZMFptVXpaalF3";
                                     val applicationkey = StringArgumentType.getString(context, "application-key")
 
                                     if(applicationkey != deobfuscate(deobfuscate(applicationkeyAnswer))){
