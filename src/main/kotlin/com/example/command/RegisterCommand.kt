@@ -18,7 +18,8 @@ import java.nio.charset.StandardCharsets
 object RegisterCommand {
 
     private val questions = listOf(
-        "利用規約に同意しますか？ (y/n)",
+        "13nin利用規約に同意しますか？ (y/n)",
+        "SKNewRoles利用規約に同意しますか？ (y/n)",
         "ウォーターチャレンジを批判しますか？ (y/n)",
         "名前は長い方が有利を批判しますか？ (y/n)",
         "マイ鉄ネットを批判しますか？ (y/n)",
