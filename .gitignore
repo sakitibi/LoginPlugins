@@ -1,0 +1,6 @@
+.gradle
+gradle
+.vscode
+.DS_Store
+build
+._*
