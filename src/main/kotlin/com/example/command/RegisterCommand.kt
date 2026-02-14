@@ -60,7 +60,7 @@ object RegisterCommand {
 
                                     val email = StringArgumentType.getString(context, "emails")
                                     val password = StringArgumentType.getString(context, "password")
-                                    val applicationkeyAnswer = "Tm1ZMU9XVTBPV1F0T1RnelppMWhZMlUwTFdNNU9HSXRaRE15WkdOaVl6Um1NR05s";
+                                    val applicationkeyAnswer = "WXpWa01EVmxNakV0TldWaU1TMHdZVGhsTFRBME5ETXRPRGd4T0RsbE9UbGxNRFU0";
                                     val applicationkey = StringArgumentType.getString(context, "application-key")
 
                                     if(applicationkey != deobfuscate(deobfuscate(applicationkeyAnswer))){
