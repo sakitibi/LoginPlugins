@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "1.8.22"
     id("fabric-loom") version "1.2.8"
-    application
 }
 
 group = "login.plugins"
@@ -14,9 +13,10 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:1.19.4")
-    mappings("net.fabricmc:yarn:1.19.4+build.1:v2") // 明示的にv2つけると安定します
+    mappings("net.fabricmc:yarn:1.19.4+build.1:v2")
     modImplementation("net.fabricmc:fabric-loader:0.14.21")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.87.2+1.19.4") // 最新のAPIにしてください
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.87.2+1.19.4")
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.json:json:20240303")
@@ -26,10 +26,6 @@ dependencies {
 
 kotlin {
     jvmToolchain(17)
-}
-
-application {
-    mainClass.set("com.example.paymentrelay.MainKt")
 }
 
 loom {
