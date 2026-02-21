@@ -10,7 +10,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example"
+            "com.example.LoginPlugins"
         ]
     },
     "mixins": [

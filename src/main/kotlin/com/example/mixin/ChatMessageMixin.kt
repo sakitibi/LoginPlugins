@@ -15,11 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 abstract class ChatMessageMixin {
 
     @Shadow
-    abstract fun getPlayer(): ServerPlayerEntity
+    lateinit var player: ServerPlayerEntity
 
     @Inject(method = ["onChatMessage"], at = [At("HEAD")], cancellable = true)
     private fun onChatMessage(packet: ChatMessageC2SPacket, ci: CallbackInfo) {
-        val player = getPlayer()
         val message = packet.chatMessage
 
         if (message.startsWith("/login ")) {
