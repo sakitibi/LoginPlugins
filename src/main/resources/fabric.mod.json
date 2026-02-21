@@ -10,11 +10,11 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.Login.Plugins"
+            "com.example"
         ]
     },
     "mixins": [
-        "com.example.mixin.ChatMessageMixin"
+        "loginplugins.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=0.14.21",

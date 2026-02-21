@@ -20,12 +20,12 @@ class PlayerEntityMixin : PlayerPersistentData {
     }
 
     @Inject(method = ["writeCustomDataToNbt"], at = [At("RETURN")])
-    fun onWriteNbt(nbt: NbtCompound, ci: CallbackInfo) {
+    fun onWriteNbt(nbt: NbtCompound) {
         nbt.put("LoginPluginData", loginplugin_data)
     }
 
     @Inject(method = ["readCustomDataFromNbt"], at = [At("RETURN")])
-    fun onReadNbt(nbt: NbtCompound, ci: CallbackInfo) {
+    fun onReadNbt(nbt: NbtCompound) {
         if (nbt.contains("LoginPluginData")) {
             loginplugin_data = nbt.getCompound("LoginPluginData")
         }

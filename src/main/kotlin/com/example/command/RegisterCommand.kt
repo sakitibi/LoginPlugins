@@ -27,6 +27,7 @@ object RegisterCommand {
         "餅尾戦争を支持しますか？ (y/n)",
         "README.htmlを読みましたか？ (y/n)"
     )
+    private val loginScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     // プレイヤーごとの質問状態（emailも含める）
     private val playerQuestionStates = mutableMapOf<UUID, PlayerQuestionState>()
@@ -117,20 +118,13 @@ object RegisterCommand {
 
             if (state.answers.all { it }) {
                 val hashedPassword = hashPassword(state.rawPassword)
-                GlobalScope.launch(Dispatchers.IO) {
-                    val paid = checkPaymentWithWix(state.email, hashedPassword)
-
-                    // サーバースレッドに戻してMinecraftのメインスレッド処理を行う
-                    server.execute {
-                        if (paid) {
-                            val loginState = LoginState.get(server)
-                            loginState.logins[uuid.toString()] = true
-                            loginState.updateGlobalLoginScore(server)
-                            player.sendMessage(Text.literal("✅ ログインが完了しました！"), false)
-                        } else {
-                            player.sendMessage(Text.literal("❌ ログイン失敗。"), false)
-                        }
-                    }
+                println("Hashed: $hashedPassword")
+                // サーバースレッドに戻してMinecraftのメインスレッド処理を行う
+                server.execute {
+                    val loginState = LoginState.get(server)
+                    loginState.logins[uuid.toString()] = true
+                    loginState.updateGlobalLoginScore(server)
+                    player.sendMessage(Text.literal("✅ ログインが完了しました！"), false)
                 }
             } else {
                 player.sendMessage(Text.literal("❌ ログインできません（質問の回答が条件未達）"), false)
@@ -143,31 +137,6 @@ object RegisterCommand {
     private fun hashPassword(password: String): String {
         val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
-    }
-
-    private fun checkPaymentWithWix(email: String, hashedPassword: String): Boolean {
-        return try {
-            val url = URL("https://12ninstudio.wixsite.com/_functions/paymentCheck")
-            val json = """{"email":"$email","password":"$hashedPassword"}"""
-
-            val conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST"
-            conn.setRequestProperty("Content-Type", "application/json")
-            conn.doOutput = true
-
-            conn.outputStream.use {
-                it.write(json.toByteArray(StandardCharsets.UTF_8))
-            }
-
-            val responseCode = conn.responseCode
-            val response = conn.inputStream.bufferedReader().readText()
-
-            println("Wix Response ($responseCode): $response")
-            response.contains("PAID")
-        } catch (e: Exception) {
-            println("Error contacting Wix: ${e.message}")
-            false
-        }
     }
 
     private data class PlayerQuestionState(
