@@ -27,6 +27,6 @@ kotlin {
 
 loom {
     mixin {
-        defaultRefmapName.set("loginplugin.refmap.json")
+        defaultRefmapName.set("loginplugins.refmap.json")
     }
 }

@@ -19,7 +19,8 @@ abstract class ChatMessageMixin {
 
     @Inject(method = ["onChatMessage"], at = [At("HEAD")], cancellable = true)
     private fun onChatMessage(packet: ChatMessageC2SPacket, ci: CallbackInfo) {
-        val message = packet.chatMessage
+
+        val message = packet.chatMessage()
 
         if (message.startsWith("/login ")) {
             val inputPassword = message.removePrefix("/login ").trim()
