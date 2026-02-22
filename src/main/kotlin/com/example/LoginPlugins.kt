@@ -16,11 +16,19 @@ class LoginPlugins : ModInitializer {
                         .executes { context ->
                             val player = context.source.player ?: return@executes 0
                             val password = StringArgumentType.getString(context, "password")
+                            val server = context.source.server
 
-                            // 22行目付近を以下に差し替え
                             if (password == LoginManager.CORRECT_PASSWORD) {
+                                // 1. ログイン状態をメモリに保存
                                 LoginManager.loginState[player.uuid] = true
-                                player.sendMessage(Text.literal("§aログイン成功"), false) // source ではなく player に直接送る
+                                player.sendMessage(Text.literal("§aログイン成功"), false)
+
+                                // 2. LoginState（永続データ）にも保存し、スコアを更新する
+                                val state = LoginState.get(server)
+                                state.logins[player.uuid.toString()] = true
+                                state.markDirty() // セーブ対象にする
+                                state.updateGlobalLoginScore(server) // スコアボードを反映
+
                             } else {
                                 player.sendMessage(Text.literal("§cパスワードが違います"), false)
                             }
