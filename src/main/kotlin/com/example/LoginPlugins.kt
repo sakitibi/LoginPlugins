@@ -17,11 +17,12 @@ class LoginPlugins : ModInitializer {
                             val player = context.source.player ?: return@executes 0
                             val password = StringArgumentType.getString(context, "password")
 
+                            // 22行目付近を以下に差し替え
                             if (password == LoginManager.CORRECT_PASSWORD) {
                                 LoginManager.loginState[player.uuid] = true
-                                context.source.sendFeedback({ Text.literal("§aログイン成功") }, false)
+                                player.sendMessage(Text.literal("§aログイン成功"), false) // source ではなく player に直接送る
                             } else {
-                                context.source.sendFeedback({ Text.literal("§cパスワードが違います") }, false)
+                                player.sendMessage(Text.literal("§cパスワードが違います"), false)
                             }
                             1
                         }
